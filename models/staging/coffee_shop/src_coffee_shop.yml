@@ -1,41 +1,41 @@
 version: 2
 
-models:
-  - name: coffee_shop
-    # database: analytics-engineers-club #synonymous with project --seemingly don't need this to exectute dbt test or dbt run
-    tables:
-      - name: customers
-        columns:
-          - name: id
-            tests:
-            - unique
-            - not_null
-          - name:
-          - email:
-      - name: order_items
-        columns:
-          - name: id
-            tests:
-            - unique
-            - not_null
-      - name: orders
-        columns:
-          - name: id
-            tests:
-            - unique
-            - not_null
-      - name: product_prices
-        columns:
-          - name: id
-            tests:
-            - unique
-            - not_null
-      - name: products
-        columns:
-          - name: id
-            tests:
-            - unique
-            - not_null
+# models:
+#   - name: coffee_shop
+#     # database: analytics-engineers-club #synonymous with project --seemingly don't need this to exectute dbt test or dbt run
+#     tables:
+#       - name: customers
+#         columns:
+#           - name: id
+#             tests:
+#             - unique
+#             - not_null
+#           - name:
+#           - email:
+#       - name: order_items
+#         columns:
+#           - name: id
+#             tests:
+#             - unique
+#             - not_null
+#       - name: orders
+#         columns:
+#           - name: id
+#             tests:
+#             - unique
+#             - not_null
+#       - name: product_prices
+#         columns:
+#           - name: id
+#             tests:
+#             - unique
+#             - not_null
+#       - name: products
+#         columns:
+#           - name: id
+#             tests:
+#             - unique
+#             - not_null
 
 
 
