@@ -2,7 +2,7 @@ version: 2
 
 models:
   - name: coffee_shop
-    database: analytics-engineers-club
+    # database: analytics-engineers-club #synonymous with project --seemingly don't need this to exectute dbt test or dbt run
     tables:
       - name: customers
         columns:
@@ -36,3 +36,54 @@ models:
             tests:
             - unique
             - not_null
+
+
+
+
+# Taken from lesson - sources.yml
+# version: 2
+
+sources:
+  - name: coffee_shop
+    description: this is a replica of our postgres database. Loaded daily by hand
+    project: analytics-engineers-club #synonymous with project
+    freshness:
+      error_after:
+        count: 12
+        period: hour
+    loaded_at_field: created_at
+    tables:
+      - name: customers
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
+
+      - name: order_items
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
+
+      - name: orders
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
+
+      - name: product_prices
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
+
+      - name: products
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
