@@ -11,4 +11,3 @@ models:
           - not_null
       - name: number_of_orders
         tests:
-          - unique
