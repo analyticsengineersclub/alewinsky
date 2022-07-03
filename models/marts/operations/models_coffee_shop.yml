@@ -1,0 +1,46 @@
+version: 2
+
+models:
+  - database: aec-students
+    name: customers
+    description: Cleaned up data for our customers
+    columns:
+      - name: customer_id
+        description: Primary key of the model
+        tests:
+          - unique
+          - not_null
+      - name: number_of_orders
+        tests:
+
+    name: order_item_rev
+    description: model for week 3 Exercise - build some data models
+    columns:
+      - name: order__item_id
+        description: Primary key of the model
+        tests:
+          - unique
+          - not_null
+        name: price
+        description: this depends on the whether the price was active (i.e. between start and end date) at the time of order
+        tests:
+          - not_null
+
+
+
+# In order to run tests on the staging models
+# I've followed the same convention as src_coffee_shop.yml
+# project is the name of the database
+# name is the name of the schema
+
+sources:
+  - project: aec-students #synonymous with database
+    name: dbt_andrew
+    tables:
+      - name: stg_coffee_shop__customers
+        columns:
+          - name: customer_id
+            tests:
+            - unique
+            - not_null
+          - name: customer_name
