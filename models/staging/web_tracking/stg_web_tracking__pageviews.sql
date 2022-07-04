@@ -4,9 +4,13 @@ with source as (
 
 , renamed as (
     select
-        *
+        id as pageview_id
+        , visitor_id
+        , customer_id			
+        , device_type	
+        , page
         -- timestamps
-
+        , timestamp	
         -- excluded columns      
 
 

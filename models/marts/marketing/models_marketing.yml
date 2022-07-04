@@ -1,0 +1,35 @@
+version: 2
+
+models:
+  - database: aec-students
+    name: user_stitching
+    description: AEC Week 4 - Exercise 1
+    columns:
+      - name: pageview_id
+        description: Primary key of the model
+        tests:
+          - unique
+          - not_null
+      - name: visitor_id
+        tests:
+
+    # name:
+
+
+
+# In order to run tests on the staging models
+# I've followed the same convention as src_coffee_shop.yml
+# project is the name of the database
+# name is the name of the schema
+
+# sources:
+#   - project: aec-students #synonymous with database
+#     name: dbt_andrew
+#     tables:
+#       - name: stg_coffee_shop__customers
+#         columns:
+#           - name: customer_id
+#             tests:
+#             - unique
+#             - not_null
+#           - name: customer_name
