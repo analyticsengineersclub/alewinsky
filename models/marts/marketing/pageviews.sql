@@ -11,7 +11,7 @@ pageviews as (
 , customer_visit_count as (
     select
     *
-    , count(visitor_id) over (partition by customer_id order by timestamp) as repeat_visits
+    , count(visitor_id) over (partition by customer_id order by timestamp) as visit_num
     from pageviews
 )
 
@@ -20,26 +20,23 @@ pageviews as (
   select
   *
   from customer_visit_count
-  where repeat_visits = 1
+  where visit_num = 1
 )
 
-
 select
-customer_visit_count.pageview_id
-, first_visit_only.visitor_id as visitor_id
-, customer_visit_count.customer_id
-, customer_visit_count.device_type
-, customer_visit_count.page
-, customer_visit_count.timestamp
-, customer_visit_count.repeat_visits
--- , customer_visit_count_2.timestamp as prev_visit_timestamp
--- , customer_visit_count_2.device_type as prev_visit_device_type
--- , customer_visit_count.timestamp - customer_visit_count_2.timestamp as time_between_views
--- , case
---     when customer_visit_count.timestamp - customer_visit_count_2.timestamp < 30
---     then true
---     else false
---     end as combined_session
-from customer_visit_count
-left join first_visit_only on customer_visit_count.customer_id = first_visit_only.customer_id
-left join customer_visit_count customer_visit_count_2 on customer_visit_count.visitor_id = customer_visit_count_2.visitor_id and customer_visit_count.repeat_visits = customer_visit_count_2.repeat_visits - 1
+cvc.pageview_id
+, foo.visitor_id as visitor_id
+, cvc.customer_id
+, cvc.device_type
+, cvc.page
+, cvc.timestamp
+, cvc.visit_num
+, cvc2.timestamp as prev_visit_timestamp
+, cvc2.device_type as prev_visit_device_type
+, cvc.timestamp - cvc2.timestamp as time_between_views
+, TIMESTAMP_DIFF(cvc.timestamp, cvc2.timestamp, MINUTE) as minutes_since_prev_visit
+, TIMESTAMP_DIFF(cvc.timestamp, cvc2.timestamp, MINUTE) < 30 as combined_session
+, count(*) over (partition by cvc.visitor_id order by cvc.timestamp) as session_id
+from customer_visit_count cvc
+left join first_visit_only foo on cvc.customer_id = foo.customer_id 
+left join customer_visit_count cvc2 on cvc.visitor_id = cvc2.visitor_id and cvc.visit_num = cvc2.visit_num + 1
