@@ -2,7 +2,7 @@ version: 2
 
 models:
   - database: aec-students
-    name: user_stitching
+    name: pageviews
     description: AEC Week 4 - Exercise 1
     columns:
       - name: pageview_id
@@ -12,6 +12,19 @@ models:
           - not_null
       - name: visitor_id
         tests:
+          - not_null
+      - name: customer_id
+        tests:
+          - not_null
+  - database: aec-students
+    name: sessionization
+    description: AEC Week 4 - Exercise 2
+    columns:
+      - name: session_id
+        description: Primary key of the model
+        tests:
+
+
 
     # name:
 
