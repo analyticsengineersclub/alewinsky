@@ -25,7 +25,7 @@ pageviews as (
 
 select
 cvc.pageview_id
-, foo.visitor_id as visitor_id
+, fvo.visitor_id as visitor_id
 , cvc.customer_id
 , cvc.device_type
 , cvc.page
@@ -38,5 +38,5 @@ cvc.pageview_id
 , TIMESTAMP_DIFF(cvc.timestamp, cvc2.timestamp, MINUTE) < 30 as combined_session
 , count(*) over (partition by cvc.visitor_id order by cvc.timestamp) as session_id
 from customer_visit_count cvc
-left join first_visit_only foo on cvc.customer_id = foo.customer_id 
+left join first_visit_only fvo on cvc.customer_id = fvo.customer_id 
 left join customer_visit_count cvc2 on cvc.visitor_id = cvc2.visitor_id and cvc.visit_num = cvc2.visit_num + 1
