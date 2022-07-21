@@ -6,8 +6,16 @@ with source as (
     select
         id as product_id
         , name as product_name
-        , category as product_category
-
+-- string manipulation to change coffee beans to coffee_beans and to change brewing supplies to brewing_supplies
+        , case
+            when category = 'coffee beans'
+            then 'coffee_beans'
+            else case
+                when category = 'brewing supplies'
+                then 'brewing_supplies'
+                else category
+                end
+            end as product_category
         -- timestamps
         , created_at as product_created_at
         -- excluded columns      
