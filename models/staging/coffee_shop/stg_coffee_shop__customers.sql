@@ -7,7 +7,10 @@ with source as (
         id as customer_id
         , name as customer_name
         , email as customer_email
-        
+
+        -- timestamps
+
+        -- excluded columns      
 
 
     from source

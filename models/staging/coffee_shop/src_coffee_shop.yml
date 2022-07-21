@@ -1,52 +1,12 @@
 version: 2
 
-# models:
-#   - name: coffee_shop
-#     # database: analytics-engineers-club #synonymous with project --seemingly don't need this to exectute dbt test or dbt run
-#     tables:
-#       - name: customers
-#         columns:
-#           - name: id
-#             tests:
-#             - unique
-#             - not_null
-#           - name:
-#           - email:
-#       - name: order_items
-#         columns:
-#           - name: id
-#             tests:
-#             - unique
-#             - not_null
-#       - name: orders
-#         columns:
-#           - name: id
-#             tests:
-#             - unique
-#             - not_null
-#       - name: product_prices
-#         columns:
-#           - name: id
-#             tests:
-#             - unique
-#             - not_null
-#       - name: products
-#         columns:
-#           - name: id
-#             tests:
-#             - unique
-#             - not_null
-
-
-
-
-# Taken from lesson - sources.yml
+# Taken from lesson 2 - sources.yml
 # version: 2
 
 sources:
   - name: coffee_shop
     description: this is a replica of our postgres database. Loaded daily by hand
-    project: analytics-engineers-club #synonymous with project
+    project: analytics-engineers-club #synonymous with database
     freshness:
       error_after:
         count: 12
@@ -59,6 +19,9 @@ sources:
             tests:
               - unique
               - not_null
+          - name: customer_email
+            tests:
+              - email_format
 
       - name: order_items
         columns:
@@ -74,12 +37,22 @@ sources:
               - unique
               - not_null
 
-      - name: product_prices
+# not sure why this isn't working given I've installled dbt-utils package
+# https://github.com/dbt-labs/dbt-utils/tree/0.8.6/#mutually_exclusive_ranges-source
+      # - name: product_prices
+      #   tests:
+      #     - dbt_utils.mutually_exclusive_ranges:
+      #       lower_bound_column: created_at
+      #       upper_bound_column: ended_at
+      #       partition by: product_id
+      #       gaps: not_allowed
+
         columns:
           - name: id
             tests:
               - unique
               - not_null
+
 
       - name: products
         columns:

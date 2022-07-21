@@ -1,0 +1,7 @@
+packages:
+# this is the dim_dates tables out of the box in dbt
+  - package: dbt-labs/dbt_utils
+    version: [">=0.8.0", "<0.9.0"]
+# this is for automating the building of staging models (see Claire's 1st lecture on DBT when she was building the staging models)
+  - package: dbt-labs/codegen
+    version: [">=0.7.0", "<0.8.0"]
