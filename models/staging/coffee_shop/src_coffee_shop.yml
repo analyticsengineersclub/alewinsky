@@ -39,13 +39,15 @@ sources:
 
 # not sure why this isn't working given I've installled dbt-utils package
 # https://github.com/dbt-labs/dbt-utils/tree/0.8.6/#mutually_exclusive_ranges-source
-      # - name: product_prices
-      #   tests:
-      #     - dbt_utils.mutually_exclusive_ranges:
-      #       lower_bound_column: created_at
-      #       upper_bound_column: ended_at
-      #       partition by: product_id
-      #       gaps: not_allowed
+      - name: product_prices
+        tests:
+          - dbt_utils.mutually_exclusive_ranges:
+# must be indented!
+# https://stackoverflow.com/questions/69713087/dbt-relationship-test-compilation-error-test-definition-dictionary-must-have-ex
+              lower_bound_column: price_start_date
+              upper_bound_column: price_end_date
+              partition_by: product_id
+              gaps: not_allowed
 
         columns:
           - name: id
