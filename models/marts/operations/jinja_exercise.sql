@@ -1,9 +1,9 @@
-{% set coffee_types = ['coffee_beans', 'merch', 'brewing_supplies', ] %}
+{% set product_categories = ['coffee_beans', 'merch', 'brewing_supplies', ] %}
 
 select
   date_trunc(order_date, month) as date_month,
-  {% for coffee_type in coffee_types %}
-  sum(case when product_category = '{{ coffee_type }}' then price end) as {{ coffee_type }}_amount,
+  {% for product_category in product_categories %}
+  sum(case when product_category = '{{ product_category }}' then price end) as {{ product_category}}_amount,
   {% endfor %}
 from {{ ref('order_item_rev') }}
 group by 1
